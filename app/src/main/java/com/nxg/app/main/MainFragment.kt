@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(AppApplication.instance())
             .create(MainViewModel::class.java)
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -104,7 +104,7 @@ class MainFragment : Fragment() {
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         doubleColorBallRecyclerViewE.adapter = doubleColorBallAdapterE
         doubleColorBallRecyclerViewE.addItemDecoration(DoubleColorBallItemDecoration(20))
-        viewModel.doubleColorBallNum.observe(viewLifecycleOwner, {
+        viewModel.doubleColorBallNum.observe(viewLifecycleOwner) {
             doubleColorBallDataA.clear()
             doubleColorBallDataA.addAll(it)
             doubleColorBallDataA.shuffle()
@@ -125,7 +125,7 @@ class MainFragment : Fragment() {
             doubleColorBallAdapterC.notifyDataSetChanged()
             doubleColorBallAdapterD.notifyDataSetChanged()
             doubleColorBallAdapterE.notifyDataSetChanged()
-        })
+        }
         binding.doubleColorBallLottery.setOnClickListener {
             //开始摇号,遍历每一个RecyclerView调用RecyclerViewLoopScrollAnimation.start()
             val ballsA = viewModel.createSevenDoubleColorBall()
@@ -179,9 +179,9 @@ class MainFragment : Fragment() {
             }
 
         }
-        viewModel.appInfo.observe(viewLifecycleOwner, {
+        viewModel.appInfo.observe(viewLifecycleOwner) {
             binding.appInfo.text = it
-        })
+        }
         viewModel.refreshDoubleColorBallNum()
         return root
     }

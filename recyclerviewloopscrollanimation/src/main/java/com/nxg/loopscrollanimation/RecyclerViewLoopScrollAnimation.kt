@@ -141,11 +141,11 @@ open class RecyclerViewLoopScrollAnimation {
      * 主要用于动画结束后执行第二阶段的弹簧动画
      */
     private val scrollAnimatorListener = object : Animator.AnimatorListener {
-        override fun onAnimationStart(animation: Animator?) {
+        override fun onAnimationStart(animation: Animator) {
             onScrollAnimatorListener?.onAnimationStart(animation)
         }
 
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(animation: Animator) {
             selectedPosition = recyclerViewScrollAction?.findLastVisibleItemPosition()!!
             mRecyclerView?.smoothScrollToPosition(selectedPosition)
             onScrollAnimatorListener?.onAnimationEnd(animation)
@@ -154,11 +154,11 @@ open class RecyclerViewLoopScrollAnimation {
             }
         }
 
-        override fun onAnimationCancel(animation: Animator?) {
+        override fun onAnimationCancel(animation: Animator) {
             onScrollAnimatorListener?.onAnimationCancel(animation)
         }
 
-        override fun onAnimationRepeat(animation: Animator?) {
+        override fun onAnimationRepeat(animation: Animator) {
             onScrollAnimatorListener?.onAnimationRepeat(animation)
         }
     }
